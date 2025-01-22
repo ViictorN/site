@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>home</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    /* Reseta os estilos */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+    }
+
+    /* Tela de Carregamento */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #121212, #000000);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    #preloader h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #00ff88;
+      letter-spacing: 2px;
+      animation: glow 1.5s infinite alternate;
+      text-align: center;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 5px #00ff88, 0 0 10px #00ff88, 0 0 20px #00ff88;
+      }
+      to {
+        text-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88, 0 0 60px #00ff88;
+      }
+    }
+
+    .loading-bar {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      height: 25px;
+      background: #333;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid #00ff88;
+      box-shadow: 0 0 10px #00ff88;
+    }
+
+    .loading-bar .progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(to right, #00ff88, #0088ff);
+      animation: progressAnimation 10s linear forwards;
+    }
+
+    @keyframes progressAnimation {
+      from {
+        width: 0%;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    .progress-text {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      font-family: monospace;
+      color: #00ff88;
+      animation: typing 10s steps(10) forwards;
+      text-align: center;
+    }
+
+    /* Background animado */
+    .background-animado {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at 50% 50%, #1a1a1a, #000000 70%);
+      overflow: hidden;
+    }
+
+    .background-animado .estrela {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      animation: moverEstrelas 5s linear infinite;
+    }
+
+    @keyframes moverEstrelas {
+      from {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(100vh) translateX(50vw);
+        opacity: 0;
+      }
+    }
+
+    /* Conteúdo do site */
+    .conteudo {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .conteudo.mostrar {
+      display: block;
+    }
+
+    /* Botão de Play */
+    .botao-play {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      color: #fff;
+      background: linear-gradient(90deg, #00ff88, #0088ff);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 10px #00ff88;
+    }
+
+    .botao-play:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #00ff88, 0 0 40px #0088ff;
+    }
+
+    .botao-play:active {
+      transform: scale(1);
+    }
+
+    /* Mensagem de alerta */
+    #mensagem-alerta {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      font-family: monospace;
+      color: #ff5555;
+      text-shadow: 0 0 10px #ff5555, 0 0 20px #ff0000;
+      display: none;
+    }
+
+    /* Rodapé */
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <!-- Tela de Carregamento -->
+  <div id="preloader">
+    <h1>Carregando...</h1>
+    <div class="loading-bar">
+      <div class="progress"></div>
+    </div>
+    <p class="progress-text">Carregando: 0%</p>
+  </div>
+
+  <!-- Background Animado -->
+  <div class="background-animado"></div>
+
+  <!-- Conteúdo Principal -->
+  <div class="conteudo">
+    <h1>Bem-vindo ao site!</h1>
+    <button class="botao-play" onclick="mostrarMensagem()">Play</button>
+    <p id="mensagem-alerta">Site Capim, só clica BURRO</p>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    &copy; 2025 ViictorN.. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // Atualiza o texto de progresso durante o carregamento
+    const progressText = document.querySelector(".progress-text");
+    let progress = 0;
+
+    const interval = setInterval(() => {
+      progress += 1;
+      progressText.textContent = `Carregando: ${progress}%`;
+      if (progress >= 100) {
+        clearInterval(interval);
+      }
+    }, 100); // Atualiza a cada 100ms (10 segundos no total)
+
+    // Remove o preloader após 10 segundos
+    setTimeout(() => {
+      const preloader = document.getElementById("preloader");
+      const conteudo = document.querySelector(".conteudo");
+      preloader.style.opacity = "0"; // Transição suave
+      setTimeout(() => {
+        preloader.style.display = "none"; // Remove do layout
+        conteudo.classList.add("mostrar");
+      }, 500); // Aguarda a transição
+    }, 10000); // 10 segundos
+
+    // Criar estrelas animadas no fundo
+    const background = document.querySelector('.background-animado');
+    for (let i = 0; i < 100; i++) {
+      const estrela = document.createElement('div');
+      estrela.className = 'estrela';
+      estrela.style.top = `${Math.random() * 100}vh`;
+      estrela.style.left = `${Math.random() * 100}vw`;
+      estrela.style.animationDuration = `${Math.random() * 5 + 3}s`;
+      background.appendChild(estrela);
+    }
+
+    // Função para exibir a mensagem ao clicar no botão Play
+    function mostrarMensagem() {
+      const mensagem = document.getElementById("mensagem-alerta");
+      mensagem.style.display = "block"; // Mostra a mensagem
+    }
+  </script>
+</body>
+</html>
